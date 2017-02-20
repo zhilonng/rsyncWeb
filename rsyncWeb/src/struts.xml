@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+"http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>  
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />  
+    <constant name="struts.devMode" value="false" /> 
+ 	 <constant name="struts.devMode" value="true" />  
+    <constant name="struts.ui.theme" value="simple" />
+        <package  name="login" namespace="/login" extends="struts-default" strict-method-invocation="false">
+        <default-action-ref name="index" />
+        <global-results>
+            <result name="error">/Error.jsp</result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="error"/>
+        </global-exception-mappings>
+      
+    </package>
+    <package name="struct" namespace="/" extends="struts-default">
+    <action name="login"  class="com.scut.rsyncWeb.action.UserAction" method="execute">
+    <result name="success">/FileSystem.jsp</result>
+    <result name="false">/Error.jsp</result>
+    </action>
+    <action name="logout" >
+    <result>/index.jsp</result>
+    </action>
+    <action name="register" class="com.scut.rsyncWeb.action.UserRegAction" method="execute">
+    <result name="success">/FileSystem.jsp</result>
+    <result name="false">/index.jsp</result>
+    </action>
+    <action name="reviseConfigure" class="com.scut.rsyncWeb.action.ConfigureReviseAction" method="execute">
+    <result name="success">/FileSystem.jsp</result>
+    <result name="false">/FileSystem.jsp</result>
+    </action>
+    <action name="doChooseCatalog" class="com.scut.rsyncWeb.action.chooseCatalogAction" method="execute">
+    <result name="success">/FileSystem.jsp</result>
+    <result name="false">/FileSystem.jsp</result>
+    </action>
+    <action name="nextPage" class="com.scut.rsyncWeb.action.nextPageAction" method="execute">
+    <result name="success">/FileSystem.jsp</result>
+    <result name="false">/FileSystem.jsp</result>
+    </action>
+    <action name="lastCatalog" class="com.scut.rsyncWeb.action.LastCatalogAction" method="execute">
+    <result name="success">/FileSystem.jsp</result>
+    <result name="false">/FileSystem.jsp</result>
+    </action>
+    </package>
+</struts>
+
+<!-- END SNIPPET: xworkSample -->
+
