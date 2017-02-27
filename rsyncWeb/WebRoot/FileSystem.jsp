@@ -130,8 +130,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 	<ol class="am-breadcrumb">
 			 	<li><a href="#">返回上一级|</a></li>
 			 	  <li><a href="javascript:enterFolder(0);">主目录</a></li>	 	  
-			 	  <li><input type="file" value="选择备份目录"></li>
-			 	  <li><input type="submit" value="开始备份" onclick="startBackUps()"></li>
+			 	  <li><input id="fileText" type="file" value="选择备份目录" ></li>
+			 	  <li><input type="submit" value="开始备份" onclick="startBackUps(document.getElementById('fileText'))"></li>
 			 	</ol>
     		</div>
     		<div class="am-u-sm-12">

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Struts2Diagram version="2.0">
+  <package name="login" location="10,633" size="170,70" />
+  <package name="struct" location="205,178" size="1435,245">
+    <action name="login" location="1186,48" size="150,62">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="FileSystem.jsp" />
+      </result>
+      <result name="false">
+        <resourceEdge source="false" routing="0" target="Error.jsp" />
+      </result>
+    </action>
+    <action name="logout" location="1186,163" size="150,41">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="index.jsp" />
+      </result>
+    </action>
+    <action name="register" location="941,153" size="150,62">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="FileSystem.jsp" />
+      </result>
+      <result name="false">
+        <resourceEdge source="false" routing="0" target="index.jsp" />
+      </result>
+    </action>
+    <action name="reviseConfigure" location="941,48" size="150,62">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="FileSystem.jsp" />
+      </result>
+      <result name="false">
+        <resourceEdge source="false" routing="0" target="FileSystem.jsp" />
+      </result>
+    </action>
+    <action name="doChooseCatalog" location="661,48" size="150,62">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="FileSystem.jsp" />
+      </result>
+      <result name="false">
+        <resourceEdge source="false" routing="0" target="FileSystem.jsp" />
+      </result>
+    </action>
+    <action name="nextPage" location="381,48" size="150,62">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="FileSystem.jsp" />
+      </result>
+      <result name="false">
+        <resourceEdge source="false" routing="0" target="FileSystem.jsp" />
+      </result>
+    </action>
+    <action name="lastCatalog" location="101,48" size="150,62">
+      <result name="success">
+        <resourceEdge source="success" routing="0" target="FileSystem.jsp" />
+      </result>
+      <result name="false">
+        <resourceEdge source="false" routing="0" target="FileSystem.jsp" />
+      </result>
+    </action>
+  </package>
+  <webResource name="FileSystem.jsp" path="/FileSystem.jsp" location="25,10" size="150,55" />
+  <webResource name="Error.jsp" path="/Error.jsp" location="1390,80" size="150,55" />
+  <webResource name="index.jsp" path="/index.jsp" location="1390,465" size="150,55" />
+</Struts2Diagram>
+

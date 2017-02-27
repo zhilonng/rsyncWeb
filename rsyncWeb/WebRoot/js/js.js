@@ -29,8 +29,17 @@ function nextPage(){
 	window.location.href="nextPage";
 }
 //开始备份
-function startBackUps(){ 	
-	var  cmd = new ActiveXObject("WScript.Shell");
-	cmd.run("cmd.exe /k "+"cd /home/dragon/文档/毕业设计/1");
-	cmd.run("cmd.exe /k "+"java -cp JrsyncClient.jar com.scut.jrsync.JsyncClient  /home/test  119.29.188.78:2467 /home/serverDir");
+function startBackUps(obj){ 	
+	var filesize = 0;
+	filesize = obj.files[0].size;
+//	alert(filesize);
+//	try{
+//	var filepath="D:\\壁纸\\3.jpg";
+//	var fso = new ActiveXObject("Scripting.FileSystemObject");
+//	var file = fso.GetFile(filepath);
+//    }catch(e){
+//    alert(e);
+//    }
+	
+	alert($("#fileText")[0].src);
 }

@@ -1,8 +1,5 @@
 package com.scut.rsyncWeb.DAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +11,6 @@ import org.hibernate.cfg.Configuration;
 import com.opensymphony.xwork2.ActionContext;
 import com.scut.rsyncWeb.entity.Configure;
 import com.scut.rsyncWeb.entity.User;
-import com.scut.rsyncWeb.util.DBOoperater;
 
 //用户登录验证类
 public class UserDAO {
@@ -32,10 +28,12 @@ public class UserDAO {
 	    q.setParameter(1,user.getPassword());
 	    List<User> list = q.list();
 	    
+	    System.out.println("list="+list);
 	    sess.put("userid", list.get(0).getId());
 	    
 	    Query q1 = session.createQuery(" from Configure as u where u.userid = ? ");
         q1.setParameter(0, list.get(0).getId());
+        System.out.println(q1.list());
         List<Configure> list1 = q1.list();
         Configure config1 = list1.get(0);
       //初始化用户session的值;
