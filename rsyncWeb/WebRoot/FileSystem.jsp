@@ -127,10 +127,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		<div class="am-u-sm-12">
     		<span></span>
     		   
-			 	<ol class="am-breadcrumb">
-			 	<li><a href="#">返回上一级|</a></li>
-			 	  <li><a href="javascript:enterFolder(0);">主目录</a></li>	 	  
-			 	  <li><input id="fileText" type="file" value="选择备份目录" ></li>
+			 	<ol class="am-breadcrumb"> 	  
+			 	  <li><input  style="display:none;" type="file" id="fileText" multiple="" webkitdirectory=""></li>
+			 	  <input  type=button value=选择路径 onclick="BrowseFolder()"> <input id="choosed-file-name" type="text" />
 			 	  <li><input type="submit" value="开始备份" onclick="startBackUps(document.getElementById('fileText'))"></li>
 			 	</ol>
     		</div>
@@ -157,146 +156,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     			    	<td class="fileOwner">haha</td>
     			    	<td class="fileType">haha</td>
     			    	<td class="fileCreateTime">haha</td>
-    			    	<td class="lockIcon">haha</td>
+    			    	<td class="lockIcon">
+    			    	<img style="height:20px; width:20px;" src="images/ic_yes.png"/>
+    			    	<img  src="images/gf_loading.gif" /></td>
     			    	</tr>
     			    </tbody>
     			</table>
     		</div>
+    		
     	</div>
+    	
     </div>
-<!-- 以下为弹出框内容 -->
-  <div class="am-modal am-modal-prompt" tabindex="-1" id="newFilePrompt">
-    <div class="am-modal-dialog">
-      <div class="am-modal-hd">新建文件</div>
-      <div class="am-modal-bd">
-        请输入要建立的文件名
-        <input type="text" class="am-modal-prompt-input" value=".txt">
-      </div>
-      <div class="am-modal-footer">
-        <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-        <span class="am-modal-btn" data-am-modal-confirm>确定</span>
-      </div>
-    </div>
-  </div>
-   <div class="am-modal am-modal-prompt" tabindex="-1" id="newFolderPrompt">
-    <div class="am-modal-dialog">
-      <div class="am-modal-hd">新建文件夹</div>
-      <div class="am-modal-bd">
-        请输入要建立的文件夹名
-        <input type="text" class="am-modal-prompt-input" >
-      </div>
-      <div class="am-modal-footer">
-        <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-        <span class="am-modal-btn" data-am-modal-confirm>确定</span>
-      </div>
-    </div>
-  </div>
-  <div class="am-popup" id="editPopUp">
-    <div class="am-popup-inner">
-      <div class="am-popup-hd">
-        <h4 class="am-popup-title">读取失败.txt</h4>
-        <span data-am-modal-close
-              class="am-close">&times;</span>
-      </div>
-      <div class="am-popup-bd editAreaPlace">
-        <form  method="POST" role="form" class="am-form">
-          	  <div class="am-form-group">
-                <textarea class="am-scrollable-vertical editArea"  id="doc-ta-1">读取失败</textarea>
-              </div>
- 			<div class="am-g am-cf">
- 			<div class="am-btn am-btn-primary am-fr" id="editSaveBtn">保存</div>
-            <div class="am-btn am-btn-primary am-fr " id="editCloseBtn">关闭</div>	
- 			</div>        
-        </form>
-      </div>
-    </div>
-  </div>
-	<div class="am-popup" id="strogePopUp">
-    <div class="am-popup-inner">
-      <div class="am-popup-hd">
-        <h4 class="am-popup-title"><i class="am-icon-desktop"></i>硬盘使用状况</h4>
-        <span data-am-modal-close
-              class="am-close">&times;</span>
-      </div>
-      <div class="am-popup-bd storgePlace">
-      	<div class="am-g" id="storgeList">
-        </div>
-        <div class="am-panel">
-             <span class="strogeSum">共计分配空间：<span class="area">未读取</span> 使用率：<span class="percentage">未读取</span>%</span>
-        </div>      
-      </div>
-       
 
-      </div>
-    </div>
-  </div>
-  <div class="am-modal am-modal-confirm" tabindex="-1" id="delConfirm">
-    <div class="am-modal-dialog">
-      <div class="am-modal-hd">警告</div>
-      <div class="am-modal-bd">
-        删除文件夹将导致删除文件夹下的所有内容！要删除吗？
-      </div>
-      <div class="am-modal-footer">
-        <span class="am-modal-btn" data-am-modal-cancel>我再想想</span>
-        <span class="am-modal-btn" data-am-modal-confirm>确定</span>
-      </div>
-    </div>
-  </div>
-	<div class="am-modal am-modal-alert" tabindex="-1" id="alertEmpty">
-	  <div class="am-modal-dialog">
-	    <div class="am-modal-hd">错误</div>
-	    <div class="am-modal-bd">
-	      禁止文件名或文件夹名为空，创建失败！
-	    </div>
-	    <div class="am-modal-footer">
-	      <span class="am-modal-btn">确定</span>
-	    </div>
-	  </div>
-	</div>
-  <div class="am-modal am-modal-alert" tabindex="-1" id="alertBan">
-    <div class="am-modal-dialog">
-      <div class="am-modal-hd">错误</div>
-      <div class="am-modal-bd">
-        权限不足！
-      </div>
-      <div class="am-modal-footer">
-        <span class="am-modal-btn">确定</span>
-      </div>
-    </div>
-  </div>
-	<div class="am-modal am-modal-alert" tabindex="-1" id="alertRepeat">
-	  <div class="am-modal-dialog">
-	    <div class="am-modal-hd">错误</div>
-	    <div class="am-modal-bd">
-	      目录下已经存在同名文件或文件夹，创建失败！
-	    </div>
-	    <div class="am-modal-footer">
-	      <span class="am-modal-btn">确定</span>
-	    </div>
-	  </div>
-	</div>
-	<div class="am-modal am-modal-alert" tabindex="-1" id="alertMultiedit">
-	  <div class="am-modal-dialog">
-	    <div class="am-modal-hd">错误</div>
-	    <div class="am-modal-bd">
-	      	禁止同时编辑多个文件！
-	    </div>
-	    <div class="am-modal-footer">
-	      <span class="am-modal-btn">确定</span>
-	    </div>
-	  </div>
-	</div>
-	<div class="am-modal am-modal-alert" tabindex="-1" id="alertEditFolder">
-	  <div class="am-modal-dialog">
-	    <div class="am-modal-hd">错误</div>
-	    <div class="am-modal-bd">
-	      禁止编辑文件夹！
-	    </div>
-	    <div class="am-modal-footer">
-	      <span class="am-modal-btn">确定</span>
-	    </div>
-	  </div>
-	</div>
 <script src="lib/jquery.min.js"></script>
 <script src="lib/amazeui/js/amazeui.min.js"></script>
 

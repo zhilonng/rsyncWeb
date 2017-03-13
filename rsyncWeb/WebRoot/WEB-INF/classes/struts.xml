@@ -45,6 +45,9 @@
     <result name="success">/FileSystem.jsp</result>
     <result name="false">/FileSystem.jsp</result>
     </action>
+    <action name="startBackUp" class="com.scut.rsyncWeb.action.startBackUpAction" method="execute">
+    <result name="success">/FileSystem.jsp</result>
+    </action>
     </package>
 </struts>
 

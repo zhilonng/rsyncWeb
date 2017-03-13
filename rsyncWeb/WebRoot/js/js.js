@@ -28,10 +28,28 @@ function turnInToFile(path,obj){
 function nextPage(){
 	window.location.href="nextPage";
 }
+//选择文件夹
+function BrowseFolder() 
+{ 
+var Message="请选择文件夹"; 
+var Shell=new ActiveXObject("Shell.Application"); 
+var Folder=Shell.BrowseForFolder(0,Message,0x0040,0x11); 
+if(Folder!=null) 
+{ 
+Folder=Folder.items();
+Folder=Folder.item();
+Folder=Folder.Path;
+if(Folder.charAt(Folder.length-1)!="\\") 
+{ 
+Folder=Folder+"\\"; 
+} 
+$("#choosed-file-name").val(Folder);
+} 
+} 
 //开始备份
 function startBackUps(obj){ 	
-	var filesize = 0;
-	filesize = obj.files[0].size;
+//	var filesize = 0;
+//	filesize = obj.files[0].size;
 //	alert(filesize);
 //	try{
 //	var filepath="D:\\壁纸\\3.jpg";
@@ -40,6 +58,21 @@ function startBackUps(obj){
 //    }catch(e){
 //    alert(e);
 //    }
+	$(document).ready(function ()
+	        {
+	            cbMgr.LoadTo("FilePanel");
+	            cbMgr.Init();
+	            cbMgr.SetupCheck(); //安装检查
+	 
+	            //取MAC地址
+	            //var mac = cbMgr.Browser.GetMacs();
+	            //alert(mac[0]);
+	 
+	            //上传指定目录下的所有文件
+	            //cbMgr.Browser.GetFiles("F:\\ftp\\", false);
+	        });
+	window.location.href="startBackUp?filename="+$("#fileText").val();
+
 	
-	alert($("#fileText")[0].src);
+//	alert($("#fileText")[0].src);
 }
