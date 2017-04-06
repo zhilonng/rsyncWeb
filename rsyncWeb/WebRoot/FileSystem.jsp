@@ -28,6 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   <!-- Amaze UI CSS -->
   <link rel="stylesheet" href="lib/amazeui/css/amazeui.min.css">
+  <link rel="stylesheet" href="layui/css/layui.css"  media="all">
 	<!-- 自己的css -->
  <link rel="stylesheet" href="css/FileSystem.css">
 </head>
@@ -58,36 +59,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </header>
 	
   <div class="am-g am-g-collapse">
-    <div class="am-u-sm-2 left">
-
-      <div class="am-panel am-panel-default">
-        <div class="am-panel-hd"><i class="am-icon-th-large"></i> 操作功能</div>
-        <div class="am-panel-bd">
-        <button type="button" class="am-btn  am-round am-btn-block functionBtn"  onclick="displayConfig()">
-        <i class="am-icon-plus-square"></i> 修改配置参数</button>
-		<button type="button" class="am-btn  am-round am-btn-block functionBtn"  onclick="displayOperation()">
-		<i class="am-icon-plus-square"></i> 数据备份操作</button>
-		<button type="button" class="am-btn  am-round am-btn-block functionBtn"  onclick="displayTestList()">
-		<i class="am-icon-minus-square"></i> 查看任务信息</button>
-        </div>
-      </div>
-      <div class="am-panel am-panel-default">
-        <div class="am-panel-hd"><i class="am-icon-th-large"></i> 其他功能</div>
-        <div class="am-panel-bd">
-        <div id="storgeInformation">
-        <div class="am-progress am-active am-progress-striped am-progress-sm">
-          <div class="am-progress-bar "  style="width: 99%"></div>
-        </div>
-        <div class="am-fc">
-        	<span class="am-fr">25/30读取失败</span>
-        </div>
-        </div>
-        
-        <button type="button" id="showStorgeBtn" class="am-btn  am-round am-btn-block functionBtn ">
-        <i class="am-icon-search"></i> 查看硬盘使用情况</button>
-        </div>
-      </div>
+    <div class="am-u-sm-2 left" style="width:16%;background:#393D49;">
+	<ul class="layui-nav layui-nav-tree" lay-filter="demo" style="width:100%;">
+	  <li class="layui-nav-item layui-nav-itemed">
+	    <a href="javascript:;">操作功能</a>
+	    <dl class="layui-nav-child">
+	      <dd><a href="javascript:;" onclick="turnToParamSetUp()">修改配置参数</a></dd>
+	      <dd><a href="javascript:;" onclick="turnToBackUpControl()">数据备份操作</a></dd>
+	      <dd><a href="javascript:;">查看任务信息</a></dd>
+	    </dl>
+	  </li>
+	  <li class="layui-nav-item">
+	    <a href="javascript:;">传输列表</a>
+	    <dl class="layui-nav-child">
+	      <dd><a onclick="tunToBackUpList()">正在备份</a></dd>
+	      <dd><a href="">完成备份</a></dd>
+	      <dd><a href="">垃圾站</a></dd>
+	    </dl>
+	  </li>
+	</ul>
     </div>
+    <iframe id="iframe-right-page" src="paramSetUp.jsp" style="width:84%;height:1000px;"></iframe>
     <!-- 配置参数设置界面 -->
     <div class="am-u-sm-10" id="dv_modyConfig">
     <div class="am-g am-g-collapse">
@@ -104,8 +96,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <input class="tv_selectcata"  type="submit" value="选择目录" onclick="doChooseCatalog()">
     <div id="dv_catalog" style="display:<%=session.getValue("isShowCatalog") %>">
     <ol class="am-breadcrumb">
-			 	<li><a href="<s:url action="lastCatalog"/>">返回上一级|</a></li>
-			 	  <li><a href="<s:url action="doChooseCatalog"/>">主目录</a></li>	 	  
+			 	<li><a href='<s:url action="lastCatalog"/>'>返回上一级|</a></li>
+			 	  <li><a href='<s:url action="doChooseCatalog"/>'>主目录</a></li>	 	  
 			 	</ol>
     <table class="am-table am-table-hover " id ='fileTable'>
     <tbody>
@@ -121,59 +113,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
     </div>
     
-    <!-- 数据备份操作 -->
-    <div class="am-u-sm-10" id="dv_opration"  style="display:none">
-    	<div class="am-g am-g-collapse" >
-    		<div class="am-u-sm-12">
-    		<span></span>
-    		   
-			 	<ol class="am-breadcrumb"> 	  
-			 	  <li><input  style="display:none;" type="file" id="fileText" multiple="" webkitdirectory=""></li>
-			 	  <input  type=button value=选择路径 onclick="BrowseFolder()"> <input id="choosed-file-name" type="text" />
-			 	  <li><input type="submit" value="开始备份" onclick="startBackUps(document.getElementById('fileText'))"></li>
-			 	</ol>
-    		</div>
-    		<div class="am-u-sm-12">
-    			<table class="am-table am-table-hover " id ='fileTable'>
-    			    <thead>
-
-    			        <tr>
-    			        	<th class= "checkbox">   			        	
-    			        	<input type="checkbox" id="checkCtl" >		     
-    			        	</th>
-    			            <th>文件名</th>
-    			            <th>所有者
-    			            <th>类型</th>
-    			            <th>创建时间</th>
-    			            <th class="lockStateTitle">操作</th>
-    			        </tr>
-    			    </thead>
-    			    <tbody>
-    			    	<tr>
-    			    	<td></td>
-    			    	<td class="fileName">
-    			    	<i class="am-icon-folder colorFolder"></i>haha</td>
-    			    	<td class="fileOwner">haha</td>
-    			    	<td class="fileType">haha</td>
-    			    	<td class="fileCreateTime">haha</td>
-    			    	<td class="lockIcon">
-    			    	<img style="height:20px; width:20px;" src="images/ic_yes.png"/>
-    			    	<img  src="images/gf_loading.gif" /></td>
-    			    	</tr>
-    			    </tbody>
-    			</table>
-    		</div>
-    		
-    	</div>
-    	
-    </div>
+    
 
 <script src="lib/jquery.min.js"></script>
 <script src="lib/amazeui/js/amazeui.min.js"></script>
+<script src="js/layui.js" charset="utf-8"></script>
 
 <!-- 自己的js -->
 <script src="js/js.js"></script>
-
-
+<script src="layui/layui.js" charset="utf-8"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+layui.use('element', function(){
+  var element = layui.element(); //导航的hover效果、二级菜单等功能，需要依赖element模块
+  
+  //监听导航点击
+  element.on('nav(demo)', function(elem){
+    //console.log(elem)
+    layer.msg(elem.text());
+  });
+});
+</script>
 </body>
 </html>

@@ -1,4 +1,12 @@
-
+function turnToParamSetUp(){
+	$("#iframe-right-page").attr('src','paramSetUp.jsp');
+}
+function turnToBackUpControl(){
+	$("#iframe-right-page").attr('src','backUpControl.jsp')
+}
+function tunToBackUpList(){
+	$("#iframe-right-page").attr('src','backUpList.jsp')
+}
 function displayConfig(){
 	$("#dv_modyConfig").show();
 	$("#dv_opration").hide();
@@ -31,48 +39,59 @@ function nextPage(){
 //选择文件夹
 function BrowseFolder() 
 { 
-var Message="请选择文件夹"; 
-var Shell=new ActiveXObject("Shell.Application"); 
-var Folder=Shell.BrowseForFolder(0,Message,0x0040,0x11); 
-if(Folder!=null) 
-{ 
-Folder=Folder.items();
-Folder=Folder.item();
-Folder=Folder.Path;
-if(Folder.charAt(Folder.length-1)!="\\") 
-{ 
-Folder=Folder+"\\"; 
+	var Message="请选择文件夹"; 
+	var Shell=new ActiveXObject("Shell.Application"); 
+	var Folder=Shell.BrowseForFolder(0,Message,0x0040,0x11); 
+	if(Folder!=null) 
+	{ 
+	Folder=Folder.items();
+	Folder=Folder.item();
+	Folder=Folder.Path;
+	if(Folder.charAt(Folder.length-1)!="\\") 
+	{ 
+	Folder=Folder+"\\"; 
+	} 
+	$("#choosed-file-name").val(Folder);
+	} 
 } 
-$("#choosed-file-name").val(Folder);
-} 
-} 
+function getPath(obj)    
+{    
+  if(obj)    
+    {    
+   
+    if (window.navigator.userAgent.indexOf("MSIE")>=1)    
+      {    
+        obj.select();    
+   
+      return document.selection.createRange().text;    
+      }    
+   
+    else if(window.navigator.userAgent.indexOf("Firefox")>=1)    
+      {    
+      if(obj.files)    
+        {    
+   
+        return obj.files.item(0).getAsDataURL();    
+        }    
+      return obj.value;    
+      }    
+    return obj.value;    
+    }    
+}    
 //开始备份
 function startBackUps(obj){ 	
-//	var filesize = 0;
-//	filesize = obj.files[0].size;
-//	alert(filesize);
-//	try{
-//	var filepath="D:\\壁纸\\3.jpg";
-//	var fso = new ActiveXObject("Scripting.FileSystemObject");
-//	var file = fso.GetFile(filepath);
-//    }catch(e){
-//    alert(e);
-//    }
-	$(document).ready(function ()
-	        {
-	            cbMgr.LoadTo("FilePanel");
-	            cbMgr.Init();
-	            cbMgr.SetupCheck(); //安装检查
-	 
-	            //取MAC地址
-	            //var mac = cbMgr.Browser.GetMacs();
-	            //alert(mac[0]);
-	 
-	            //上传指定目录下的所有文件
-	            //cbMgr.Browser.GetFiles("F:\\ftp\\", false);
-	        });
-	window.location.href="startBackUp?filename="+$("#fileText").val();
 
-	
-//	alert($("#fileText")[0].src);
+//	window.open ("page.html", "newwindow", "height=100, width=400, toolbar =no, menubar=no, scrollbars=no, resizable=no, location=no, status=no") //写成一行 
+//	$(document).ready(function ()
+//	        {
+//	            cbMgr.LoadTo("FilePanel");
+//	            cbMgr.Init();
+//	            cbMgr.SetupCheck(); //安装检查
+//
+//	        });
+	window.location.href="startBackUp";
+
+}
+function stopBackUp(){
+	window.location.href="stopBackUp";
 }

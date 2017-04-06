@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<!-- 映射对应的 package -->
+<hibernate-mapping package="com.scut.rsyncWeb.entity">
+
+    <!-- 实体类和数据库中的表对应（如果没有这个表则新建） -->
+    <class name="FileInfo" table="rsync_backupfiles">
+
+        <!-- id主键 和其他属性对应表中相应的字段（这些都是在 User.java 实体类中定义的） -->
+        <id name="id" column="backup_userid"/>
+        <property name="fileName" column="backup_filename"></property>
+        <property name="ip" column="back_server_ip"></property>
+        <property name="fileOwner" column="backup_owner"></property>
+        <property name="type" column="backup_type"></property>
+        <property name="time" column="backup_time"></property>
+        <property name="state" column="backup_state"></property>
+        <property name="clientCatalog" column="	backup_client_catalog"></property>
+        <property name="serverCatalog" column="backup_server_catalog"></property>
+
+    </class>
+</hibernate-mapping>

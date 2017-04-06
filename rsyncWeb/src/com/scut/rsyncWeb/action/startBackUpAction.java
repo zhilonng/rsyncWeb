@@ -1,27 +1,39 @@
 package com.scut.rsyncWeb.action;
 
 import java.io.File;
+import java.util.Map;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.scut.jrsync.JsyncClient;
+import com.scut.rsyncWeb.util.*;
 
 public class startBackUpAction {
 	private String filename;
+	Thread thread;
 	public startBackUpAction(){}
 	 public String execute() throws Exception {
-		 JsyncClient  jrsync = new JsyncClient();
-		 System.out.println(filename);
-		 File directory;
-		 directory = new File("E:\\clientDir\\VC_RED.MSI");
-		 System.out.println("start rsync");
-		 try {
-			jrsync.syncDirectory(directory, "119.29.188.78", 2466, "/home/serverDir");
-			System.out.println("ok");
-		} catch (Throwable e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		 
+		//用户session
+		Map sess= ActionContext.getContext().getSession();
+		//初始化数据
+//		if(sess.get("backUpFiles"))
+//		String backUpFiles = (String) sess.get("backUpFiles");
+//	
+		SingletonFileOperater a = null;
+		SingletonFileOperater b =a.getOperater();
+		b.syncDirectory("qaq");
+		
 		 return "success";
 	 }
+	
+	public String stopbackup() throws Exception{
+		SingletonFileOperater a = null;
+		SingletonFileOperater b =a.getOperater();
+		b.stopSync(0);
+		
+		return "success";
+	}
+	
 	public String getFilename() {
 		return filename;
 	}

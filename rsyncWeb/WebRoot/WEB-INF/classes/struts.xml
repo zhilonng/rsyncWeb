@@ -30,23 +30,26 @@
     <result name="false">/index.jsp</result>
     </action>
     <action name="reviseConfigure" class="com.scut.rsyncWeb.action.ConfigureReviseAction" method="execute">
-    <result name="success">/FileSystem.jsp</result>
-    <result name="false">/FileSystem.jsp</result>
+    <result name="success">/paramSetUp.jsp</result>
+    <result name="false">/paramSetUp.jsp</result>
     </action>
     <action name="doChooseCatalog" class="com.scut.rsyncWeb.action.chooseCatalogAction" method="execute">
-    <result name="success">/FileSystem.jsp</result>
-    <result name="false">/FileSystem.jsp</result>
+    <result name="success">/catalog.jsp</result>
     </action>
     <action name="nextPage" class="com.scut.rsyncWeb.action.nextPageAction" method="execute">
-    <result name="success">/FileSystem.jsp</result>
-    <result name="false">/FileSystem.jsp</result>
+    <result name="success">/paramSetUp.jsp</result>
+    <result name="false">/paramSetUp.jsp</result>
     </action>
     <action name="lastCatalog" class="com.scut.rsyncWeb.action.LastCatalogAction" method="execute">
-    <result name="success">/FileSystem.jsp</result>
-    <result name="false">/FileSystem.jsp</result>
+    <result name="success">/paramSetUp.jsp</result>
+    <result name="false">/paramSetUp.jsp</result>
     </action>
-    <action name="startBackUp" class="com.scut.rsyncWeb.action.startBackUpAction" method="execute">
-    <result name="success">/FileSystem.jsp</result>
+    <action name="startBackUp" class="com.scut.rsyncWeb.action.FileBackUpControlAction" method="execute">
+    <result name="success">/backUpList.jsp</result>
+    <result name="false">/backUpFileSetUp.jsp</result>
+    </action>
+    <action name="stopBackUp" class="com.scut.rsyncWeb.action.FileBackUpControlAction" method="stopbackup">
+    <result name="success">/backUpList.jsp</result>
     </action>
     </package>
 </struts>

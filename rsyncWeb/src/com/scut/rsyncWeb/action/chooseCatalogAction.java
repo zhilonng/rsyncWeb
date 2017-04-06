@@ -44,6 +44,7 @@ public class chooseCatalogAction {
 		try{
 		files = ftpClient.getServerName("/"+path);
 		}catch(Exception ex){
+			System.out.print("false");
 			return "false";
 		}
 		List<FileInfo> list = new ArrayList();

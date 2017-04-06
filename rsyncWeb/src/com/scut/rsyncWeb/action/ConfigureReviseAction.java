@@ -3,7 +3,7 @@ package com.scut.rsyncWeb.action;
 import java.util.Map;
 
 import com.opensymphony.xwork2.ActionContext;
-import com.scut.rsyncWeb.DAO.configureReviseDAO;
+import com.scut.rsyncWeb.DAO.ConfigureDAO;
 import com.scut.rsyncWeb.entity.Configure;
 
 public class ConfigureReviseAction {
@@ -15,8 +15,8 @@ public class ConfigureReviseAction {
 	private String ftppassword;
 	
 	public String execute() throws Exception {
-		configureReviseDAO configdao = new configureReviseDAO();
-		Map session = ActionContext.getContext().getSession();
+		ConfigureDAO configure = new ConfigureDAO();//Configure操作对象
+		Map session = ActionContext.getContext().getSession();//用户session
 		int userid1 = (Integer) session.get("userid");
 		Configure config = new Configure();
 		config.setUserid(userid1);
@@ -25,12 +25,37 @@ public class ConfigureReviseAction {
 		config.setCatalog(catalog);
 		config.setFtpusername(ftpusername);
 		config.setFtppassword(ftppassword);
-		boolean isReviseConfigure = configdao.isReviseConfigure(config);
-		if(isReviseConfigure){
-			return "success";
-		}else{
-			return "false";
+//		System.out.println(config.getUserid());
+//		boolean isReviseConfigure = configdao.isReviseConfigure(config);
+//		if(isReviseConfigure){
+//			return "success";
+//		}else{
+//			return "false";
+//		}
+		Configure config1 = configure.getConfigure(userid1);
+		config.setId(config1.getId());
+		if( config1!=null){
+			if(configure.updateConfigure(config)){
+				configure.closeSession();
+				//初始化用户session的值
+	        	session.remove("ip");
+	        	session.put("ip", config.getIp());
+	        	session.remove("port");
+	        	session.put("port", config.getPort());
+		        session.remove("catalog");
+		        session.put("path",config.getCatalog());
+		        session.remove("ftp_username");
+		        session.put("ftp_username",config.getFtpusername());
+		        session.remove("ftp_password");
+		        session.put("ftp_password",config.getFtppassword());
+		        System.out.println("sess:"+session.get("ip"));
+//				System.out.println("ftppassword="+session.get(key));
+				return "success";
+			}else{
+				return "false";
+			}
 		}
+		return "false";
 	}
 	
 	public int getUserid() {
