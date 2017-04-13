@@ -2,13 +2,15 @@ package com.scut.rsyncWeb.entity;
 
 public class FileInfo {
 
-	private int id; //用户id
+	private int id; //文件数据库保存条目
+	private int userid;//用户id
 	private String ip;//备份目标服务器ip
 	private String fileName; //文件名
 	private String fileOwner; //文件拥有着
 	private String type; //文件类型
 	private String time; //创建时间
 	private String state; //文件状态 0：已上传 1：正在上传 2：已暂停
+	private String stateStart; //文件状态0：正在上传1：暂停上传 其为state中状态1的分支
 	private String clientCatalog;//客户端目录
 	private String serverCatalog;//目标服务器目录
 	
@@ -81,5 +83,21 @@ public class FileInfo {
 
 	public void setServerCatalog(String serverCatalog) {
 		this.serverCatalog = serverCatalog;
+	}
+
+	public int getUserid() {
+		return userid;
+	}
+
+	public void setUserid(int userid) {
+		this.userid = userid;
+	}
+
+	public String getStateStart() {
+		return stateStart;
+	}
+
+	public void setStateStart(String stateStart) {
+		this.stateStart = stateStart;
 	}
 }

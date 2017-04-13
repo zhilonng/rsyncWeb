@@ -53,7 +53,7 @@ showDialogFileExit = "<script type='text/javascript'>alert('文件已备份，�
 	
 	
 	<!-- 自己的js -->
-	<script src="js/js.js"></script>
+	<script src="js/backUpFileSetUp.js"></script>
 	<script>
 	$("#setCatalog").on('click',function(){
 	window.parent.setCatalog($("#Catalog").val());

@@ -10,13 +10,15 @@
     <class name="FileInfo" table="rsync_backupfiles">
 
         <!-- id主键 和其他属性对应表中相应的字段（这些都是在 User.java 实体类中定义的） -->
-        <id name="id" column="backup_userid"/>
+        <id name="id" column="id"/>
+        <property name="userid" column="backup_userid"></property>
         <property name="fileName" column="backup_filename"></property>
         <property name="ip" column="back_server_ip"></property>
         <property name="fileOwner" column="backup_owner"></property>
         <property name="type" column="backup_type"></property>
         <property name="time" column="backup_time"></property>
         <property name="state" column="backup_state"></property>
+        <property name="stateStart" column="backup_state_start"></property>
         <property name="clientCatalog" column="	backup_client_catalog"></property>
         <property name="serverCatalog" column="backup_server_catalog"></property>
 

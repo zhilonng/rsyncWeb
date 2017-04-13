@@ -30,21 +30,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
 	  <div style="margin:0" class="layui-tab layui-tab-card">
 	  <ul class="layui-tab-title">
-	    <li class="layui-this">目录选取</li>
-	    <li>正在备份</li>
-	    <li>备份完成</li>
-	    <li>垃圾箱</li>
+	    <li class="layui-this" >目录选取</li>
+	    <li id="li-backup-ing" onclick="get_backup_data()">正在备份</li>
+	    <li onclick="get_backup_data()">备份完成</li>
+	    <li onclick="get_backup_data()">垃圾箱</li>
 	  </ul>
 	  <div class="layui-tab-content" style="height: 100px;padding:0;">
 	    <div class="layui-tab-item layui-show">
-	    <iframe style="width:100%;height:700px;" src="backUpFileSetUp.jsp"></iframe></div>
+	    <iframe id="iframe-backupsetup" style="width:100%;height:700px;" src="backUpFileSetUp.jsp"></iframe></div>
 	    <div class="layui-tab-item">
-	    <iframe style="width:100%;height:700px;" src="backUpList.jsp"></iframe></div>
+	    <iframe id="iframe-backuplist" style="width:100%;height:700px;" src="backUpList.jsp"></iframe></div>
 	    <div class="layui-tab-item">
-	    <iframe style="width:100%;height:700px;" src="backUpCompelteList.jsp"></iframe></div>
-	    <div class="layui-tab-item">4</div>
-	    <div class="layui-tab-item">5</div>
-	    <div class="layui-tab-item">6</div>
+	    <iframe id="iframe-backupcopmplete" style="width:100%;height:700px;" src="backUpCompelteList.jsp"></iframe></div>
+	    <div class="layui-tab-item">
+	    <iframe id="iframe-backupdelete" style="width:100%;height:700px;" src="jsp/backUpDeleteList.jsp"></iframe></div></div>
 	  </div>
 	</div>
 	<script src="lib/jquery.min.js"></script>
@@ -54,17 +53,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<!-- 自己的js -->
 	<script src="js/js.js"></script>
+	<script src="js/backUpControl.js"></script>
 	<script>
 	$("#setCatalog").on('click',function(){
 	window.parent.setCatalog($("#Catalog").val());
 	//关闭iframe页面
 	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+	console.log(index);
 	parent.layer.close(index);
 	});
 	
 	layui.use('element', function(){
 	  var element = layui.element();
-	  
 	  //…
 	});
 	</script>

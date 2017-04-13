@@ -2,6 +2,7 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+
 %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -27,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
   
-  <body>
+  <body style="height:500px;">
 	<!-- 数据备份操作 -->
 	<table style="margin:0;" class="layui-table" lay-skin="line">
 	  <colgroup>
@@ -46,15 +47,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    </tr> 
 	  </thead>
 	  <tbody>
-	  <s:iterator value="#session.list_backup_files" var="fileinfo"> 
+	  <s:iterator value="#session.list_backup_ing_files" var="fileinfo" status="vo"> 
 	    <tr>
 		      <td><i class="am-icon-folder colorFolder"></i><s:property value="#fileinfo.fileName" /></td>
 		      <td><s:property value="#fileinfo.fileOwner" /></td>
 		      <td><s:property value="#fileinfo.type" /></td>
 		      <td><s:property value="#fileinfo.time" /></td>
 		      <td>
-		      	<img style="height:20px; width:20px;" src="images/ic_yes.png"/>
-				<img style="height:20px; width:15px;" onclick="stopBackUp()" src="images/gf_loading.gif" />
+		    	<button id="btn-backup-pause<s:property value="#vo.index"/>" onclick="reStartBackUp('<s:property value="#fileinfo.id"/>');" class="layui-btn layui-btn-small"><i class="layui-icon"></i></button>
+				<img id="img-backup-start<s:property value="#vo.index"/>" style="height:20px; width:15px;" onclick="stopBackUp()" src="images/gf_loading.gif" />
 				<button class="layui-btn layui-btn-small">
 			    <i class="layui-icon">&#xe640;</i>
 			 	 </button>
@@ -78,6 +79,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 	parent.layer.close(index);
 	});
+	function reStartBackUp(id){
+	var data= {'id':id}
+	$.post(
+			"reStartBackUp.action",
+			data,
+			function(msg){
+				
+			});
+	}
+	//加载html后执行
+	$(function(){ 
+	<s:iterator value="#session.list_backup_ing_files" var="fileinfo" status="vo">; 
+	var state_start = '<s:property value="#fileinfo.stateStart" />';
+	if(state_start == "0"){
+	$("#btn-backup-pause<s:property value='#vo.index'/>").hide();
+	$("#img-backup-start<s:property value='#vo.index'/>").show();
+	}else{
+	$("#btn-backup-pause<s:property value='#vo.index'/>").show();
+	$("#img-backup-start<s:property value='#vo.index'/>").hide();
+	}
+	</s:iterator> 
+	}); 
 	</script>
   </body>
 </html>

@@ -7,6 +7,15 @@ function turnToBackUpControl(){
 function tunToBackUpList(){
 	$("#iframe-right-page").attr('src','backUpList.jsp')
 }
+function get_backup_data(){
+	$.post(
+			"getBackUpListData.action",
+			function(msg){
+				$("#iframe-backuplist").attr('src','backUpList.jsp');
+				$("#iframe-backupcopmplete").attr('src','backUpCompelteList.jsp');
+				$("#iframe-backupdelete").attr('src','jsp/backUpDeleteList.jsp');
+			});
+}
 function displayConfig(){
 	$("#dv_modyConfig").show();
 	$("#dv_opration").hide();
@@ -80,17 +89,23 @@ function getPath(obj)
 }    
 //开始备份
 function startBackUps(obj){ 	
-
-//	window.open ("page.html", "newwindow", "height=100, width=400, toolbar =no, menubar=no, scrollbars=no, resizable=no, location=no, status=no") //写成一行 
-//	$(document).ready(function ()
-//	        {
-//	            cbMgr.LoadTo("FilePanel");
-//	            cbMgr.Init();
-//	            cbMgr.SetupCheck(); //安装检查
-//
-//	        });
-	window.location.href="startBackUp";
-
+	var data = {
+			'filename':"int"
+	};
+	$.post(
+		"startBackUp.action",
+		data,
+		function(msg){
+			$("#li-backup-ing").click();
+		});
+}
+//重新开始备份
+function reStartBackUp(id){
+	$.post(
+			"reStartBackUp.action",
+			function(msg){
+				
+			});
 }
 function stopBackUp(){
 	window.location.href="stopBackUp";

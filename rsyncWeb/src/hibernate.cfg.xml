@@ -13,7 +13,7 @@
         <property name="connection.driver_class">org.gjt.mm.mysql.Driver</property>
 
         <!-- jdbc 的连接 url 和数据库（使用我们之前新建的 hibernate）-->
-        <property name="connection.url">jdbc:mysql://localhost:3306/db_rsyncWeb</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/db_rsyncweb</property>
 
         <!-- 数据库用户名 -->
         <property name="connection.username">root</property>
@@ -40,7 +40,7 @@
         <!-- 映射文件 -->
         <mapping resource="com/scut/rsyncWeb/entity/User.hbm.xml"/>
         <mapping resource="com/scut/rsyncWeb/entity/Configure.hbm.xml"/>
-
+        <mapping resource="com/scut/rsyncWeb/entity/FileInfo.hbm.xml"/>
     </session-factory>
 
 </hibernate-configuration>
