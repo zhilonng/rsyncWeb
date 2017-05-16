@@ -5,11 +5,13 @@ import java.util.Map;
 import com.opensymphony.xwork2.ActionContext;
 //返回上一级目录
 public class LastCatalogAction {
+	private int id;
 
 	public String execute() throws Exception {
 		//用户session
 		Map sess= ActionContext.getContext().getSession();
 		chooseCatalogAction chooseCatalog = new chooseCatalogAction();
+		chooseCatalog.setId(id);
 		String path = (String) sess.get("path");
 		if(path == null || path == ""){return "false";}
 		if(path == "/"){return "false";}
@@ -24,6 +26,19 @@ public class LastCatalogAction {
 		chooseCatalog.execute();
 		System.out.println(path);
 		System.out.println(a);
-		return "success";
+		if(this.id == 0){
+			return "local";
+		}else{
+			return "success";
+		}
+		
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

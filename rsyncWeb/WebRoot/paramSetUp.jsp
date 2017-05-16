@@ -114,8 +114,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	});
 	});
   	});
-	function setCatalog(path){
+	function setCatalog(path,index){
+	if(index == 0){
 	$("#lay-catalog").val(path);
+	}
 	}
 	</script>
 

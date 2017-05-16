@@ -35,11 +35,11 @@ function displayTestList(){
 }
 //选择目录
 function doChooseCatalog(){
-	window.location.href="doChooseCatalog?id=1";
+	window.location.href="doChooseCatalog?id=0";
 }
 //进入文件夹
 function turnInToFile(path,obj){
-	window.location.href="doChooseCatalog?filename="+path+"&&id=1";
+	window.location.href="doChooseCatalog?filename="+path+"&&id=0";
 }
 //下一页
 function nextPage(){
@@ -79,6 +79,7 @@ function getPath(obj)
       {    
       if(obj.files)    
         {    
+   
         return obj.files.item(0).getAsDataURL();    
         }    
       return obj.value;    
@@ -88,9 +89,8 @@ function getPath(obj)
 }    
 //开始备份
 function startBackUps(obj){ 	
-	alert(obj);
 	var data = {
-			'filename':'int'
+			'filename':"int"
 	};
 	$.post(
 		"startBackUp.action",

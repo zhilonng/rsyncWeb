@@ -44,7 +44,8 @@ public class FileBackUpControlAction {
 	
 	SingletonFileOperater a = null;//创建单例对象
 	SingletonFileOperater b =a.getOperater();//获取单例对象
-	b.syncDirectory("qaq");//开始同步
+	System.out.println(this.filename);
+	b.syncDirectory(this.filename);//开始同步
 	FileInfo fileinfo = new FileInfo();//创建fileinfo，将备份数据备份至数据库
 	/**
 	 * 初始化数据

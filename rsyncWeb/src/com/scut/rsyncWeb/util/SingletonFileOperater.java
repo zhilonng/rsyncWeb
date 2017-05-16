@@ -43,7 +43,7 @@ final public class SingletonFileOperater {
 		final JsyncClient  jrsync = new JsyncClient();
 		 System.out.println("这在单例模式中");
 		 final File directory;
-		 directory = new File("E:\\fenxiao");
+		 directory = new File(path);
 		 System.out.println("start rsync");
 		 
 		 fixedThread = new Thread(new Runnable(){

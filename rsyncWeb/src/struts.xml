@@ -35,14 +35,20 @@
     </action>
     <action name="doChooseCatalog" class="com.scut.rsyncWeb.action.chooseCatalogAction" method="execute">
     <result name="success">/catalog.jsp</result>
+    <result name="local">/jsp/localcatalog.jsp</result>
+    </action>
+    <action name="doChooseLocalCatalog" class="com.scut.rsyncWeb.action.chooseCatalogAction" method="execute">
+    <result name="success">/jsp/localcatalog.jsp</result>
     </action>
     <action name="nextPage" class="com.scut.rsyncWeb.action.nextPageAction" method="execute">
-    <result name="success">/paramSetUp.jsp</result>
-    <result name="false">/paramSetUp.jsp</result>
+    <result name="success">/catalog.jsp</result>
+    <result name="local">/jsp/localcatalog.jsp</result>
+    <result name="false">/catalog.jsp</result>
     </action>
     <action name="lastCatalog" class="com.scut.rsyncWeb.action.LastCatalogAction" method="execute">
-    <result name="success">/paramSetUp.jsp</result>
-    <result name="false">/paramSetUp.jsp</result>
+    <result name="success">/catalog.jsp</result>
+    <result name="local">/jsp/localcatalog.jsp</result>
+    <result name="false">/catalog.jsp</result>
     </action>
     <action name="startBackUp" class="com.scut.rsyncWeb.action.FileBackUpControlAction" method="execute">
     <result name="success">/backUpControl.jsp</result>

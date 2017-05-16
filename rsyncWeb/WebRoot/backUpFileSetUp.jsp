@@ -41,9 +41,11 @@ showDialogFileExit = "<script type='text/javascript'>alert('文件已备份，�
 	<fieldset class="layui-elem-field layui-field-title site-demo-button" style="margin-top: 30px;">
 	<legend style="font-size:20px;">请选取目标目录进行备份</legend>
 	<div style="display:flex;flex-wrap:wrap;margin-left:20px;">
-   <input  type="file" id="fileText" multiple="multiple" webkitdirectory="">
+   <input  type="file" id="fileText" style="display:none;" multiple="multiple" webkitdirectory="">
    <input style="display:none;" type=button value=选择文件夹 onclick="BrowseFolder()"> <input style="display:none;" id="choosed-file-name" type="text" />
-   <button class="layui-btn" onclick="startBackUps(document.getElementById('fileText'))">
+   <div data-method="notice" class="layui-btn layui-btn-danger" id="openLayerToCatalog" >选择目录 ></div>
+   <input id="tv-localcatalog" type="text" value="您选择的备份目录" >
+   <button class="layui-btn" onclick="startBackUps(document.getElementById('tv-localcatalog'))">
 	  <i class="layui-icon">&#xe608;</i> 开始备份
 	</button>
     </div>
@@ -55,6 +57,35 @@ showDialogFileExit = "<script type='text/javascript'>alert('文件已备份，�
 	<!-- 自己的js -->
 	<script src="js/backUpFileSetUp.js"></script>
 	<script>
+	$("#openLayerToCatalog").on('click', function(){
+	layui.use('layer', function(){
+	 //iframe窗
+	layer.open({
+	  id:"iframe-chosecatalog",
+	  type: 2,
+	  title: false,
+	  closeBtn: 0, //不显示关闭按钮
+	  shade: [0],
+	  area: ['50px', '0px'],
+	  offset: 'rb', //右下角弹出
+	  time: 2000, //2秒后自动关闭
+	  anim: 2,
+	  end: function(){ //此处用于演示
+	    layer.open({
+	      type: 2,
+	      title: '请选择目录',
+	      shadeClose: true,
+	      shade: false,	
+	      offset:"t",
+	      maxmin: true, //开启最大化最小化按钮
+	      area: ['893px', '600px'],
+	      content: 'jsp/localcatalog.jsp'
+	    });
+	  }
+	});
+	});
+  	});
+	
 	$("#setCatalog").on('click',function(){
 	window.parent.setCatalog($("#Catalog").val());
 	//关闭iframe页面
@@ -67,6 +98,11 @@ showDialogFileExit = "<script type='text/javascript'>alert('文件已备份，�
 	  
 	  //…
 	});
+	function setCatalog(path,index){
+	if(index == 1){
+	$("#tv-localcatalog").val(path);
+	}
+	}
 	</script>
   </body>
 </html>

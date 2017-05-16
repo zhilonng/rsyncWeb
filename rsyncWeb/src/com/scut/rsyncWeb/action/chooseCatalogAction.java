@@ -12,15 +12,28 @@ import com.scut.rsyncWeb.util.FtpClientUtil;
 //选择目录
 public class chooseCatalogAction {
 	private String filename;
+	private int id;
 	public chooseCatalogAction(){}
 	public String execute() throws Exception {
 		//用户session
 		Map sess= ActionContext.getContext().getSession();
+		String ip;
+		String ftpusername;
+		String ftppassword;
+		int port;
+		
 		//初始化数据
-		String ip = (String) sess.get("ip");
-		int port = 22;
-		String ftpusername = (String) sess.get("ftp_username");
-		String ftppassword = (String) sess.get("ftp_password");
+		if(this.id==1){
+		ip = (String) sess.get("ip");
+		port = 22;
+		ftpusername = (String) sess.get("ftp_username");
+		ftppassword = (String) sess.get("ftp_password");
+		}else{
+			ip = "110.64.88.125";
+			port = 21;
+			ftpusername = "Administrators";
+			ftppassword = "huangzhilong...0";
+		}
 		String catalog = (String) sess.get("catalog");
 		//连接服务器
 		FtpClientUtil ftpClient = new FtpClientUtil(ip,port,ftpusername,ftppassword);
@@ -108,12 +121,22 @@ public class chooseCatalogAction {
 			sess.remove("page");
 			sess.put("page", 1);
 		}
-		return "success";
+		if(this.id == 0){
+			return "local";
+		}else{
+			return "success";
+		}
 	}
 	public String getFilename() {
 		return filename;
 	}
 	public void setFilename(String filename) {
 		this.filename = filename;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 }

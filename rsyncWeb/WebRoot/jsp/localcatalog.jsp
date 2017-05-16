@@ -1,7 +1,10 @@
-<%@ page language="java" import="java.util.*" contentType="text/html; charset=utf-8"%>
+<%@ page language="java" import="java.util.*,com.opensymphony.xwork2.ActionContext" contentType="text/html; charset=utf-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+//用户session
+Map sess= ActionContext.getContext().getSession();
+
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -33,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <input class="tv_selectcata"  type="submit" value="选择目录" onclick="doChooseCatalog()">
     <div id="dv_catalog" style="display:<%=session.getValue("isShowCatalog") %>">
     <ol class="am-breadcrumb">
-			 	<li><a href="lastCatalog?id=1">返回上一级|</a></li>
+			 	<li><a href="lastCatalog?id=0">返回上一级|</a></li>
 			 	  <li><a onclick="doChooseCatalog()">主目录</a></li>	 	  
 			 	</ol>
     <table class="am-table am-table-hover " id ='fileTable'>
@@ -42,8 +45,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </tbody>
     </table>
     <ol class="am-breadcrumb">
-	<li><a href='<s:url action="nextPage?pageOpType=lastpage&&id=1"/>'>上一页</a></li>
-	<li><a href='<s:url action="nextPage?pageOpType=nextpage&&id=1"/>'>下一页</a></li> 
+	<li><a href='nextPage?pageOpType=lastpage&&id=0'>上一页</a></li>
+	<li><a href='nextPage?pageOpType=nextpage&&id=0'>下一页</a></li> 
 	</ol>
 	</div>
 	
@@ -53,10 +56,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	
 	<!-- 自己的js -->
-	<script src="js/js.js"></script>
+	<script src="js/localcatalog.js"></script>
 	<script>
 	$("#setCatalog").on('click',function(){
-	window.parent.setCatalog($("#Catalog").val(),0);
+	window.parent.setCatalog($("#Catalog").val(),1);
 	//关闭iframe页面
 	var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 	parent.layer.close(index);

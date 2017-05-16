@@ -44,8 +44,9 @@ public class controlFileInfoDAO {
 		try{
 			Transaction tran = this.session.beginTransaction();//开始事务
 			this.session.save(fileinfo);//执行  
-			tran.commit();//提交
+			this.session.getTransaction().commit();
 		}catch(Exception ev){
+			System.out.println("insertFileInfo fail");
 			return false;
 		}
 		return true;
