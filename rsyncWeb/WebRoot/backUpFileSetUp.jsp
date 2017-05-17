@@ -45,7 +45,7 @@ showDialogFileExit = "<script type='text/javascript'>alert('文件已备份，�
    <input style="display:none;" type=button value=选择文件夹 onclick="BrowseFolder()"> <input style="display:none;" id="choosed-file-name" type="text" />
    <div data-method="notice" class="layui-btn layui-btn-danger" id="openLayerToCatalog" >选择目录 ></div>
    <input id="tv-localcatalog" type="text" value="您选择的备份目录" >
-   <button class="layui-btn" onclick="startBackUps(document.getElementById('tv-localcatalog'))">
+   <button class="layui-btn" onclick="startBackUps()">
 	  <i class="layui-icon">&#xe608;</i> 开始备份
 	</button>
     </div>

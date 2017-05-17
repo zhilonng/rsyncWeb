@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		      <td><s:property value="#fileinfo.time" /></td>
 		      <td>
 		    	<button id="btn-backup-pause<s:property value="#vo.index"/>" onclick="reStartBackUp('<s:property value="#fileinfo.id"/>');" class="layui-btn layui-btn-small"><i class="layui-icon"></i></button>
-				<img id="img-backup-start<s:property value="#vo.index"/>" style="height:20px; width:15px;" onclick="stopBackUp()" src="images/gf_loading.gif" />
+				<img id="img-backup-start<s:property value="#vo.index"/>" style="height:20px; width:15px;" onclick="stopBackUp('<s:property value="#fileinfo.id"/>')" src="images/gf_loading.gif" />
 				<button class="layui-btn layui-btn-small">
 			    <i class="layui-icon">&#xe640;</i>
 			 	 </button>

@@ -40,12 +40,35 @@ public class FileBackUpControlAction {
 	 * @return
 	 * @throws Exception
 	 */
-	public void execute() throws Exception {	 
+	public String execute() throws Exception {	 
 	
 	SingletonFileOperater a = null;//创建单例对象
 	SingletonFileOperater b =a.getOperater();//获取单例对象
 	System.out.println(this.filename);
-	b.syncDirectory(this.filename);//开始同步
+	/**
+	 * 判断是否已存在五个备份事件，若存在，返回异常
+	 */
+	int num = 6;
+	for(int k=0;k<5;k++){
+		if(b.RUNNING[k] == 1){
+			num = k;
+			break;
+		}
+	}
+	if(num == 6){
+		HttpServletResponse response=ServletActionContext.getResponse();   
+	    response.setContentType("text/html;charset=utf-8");  
+	    //response.setCharacterEncoding("UTF-8");  
+	    PrintWriter out = response.getWriter();  
+	    //JSON在传递过程中是普通字符串形式传递的，这里简单拼接一个做测试  
+	    String jsonString="overflow";  
+	    out.println(jsonString);  
+	    out.flush();  
+	    out.close();  
+		return "error";
+	}
+	
+	b.syncDirectory1(this.filename,num);//开始同步
 	FileInfo fileinfo = new FileInfo();//创建fileinfo，将备份数据备份至数据库
 	/**
 	 * 初始化数据
@@ -57,9 +80,11 @@ public class FileBackUpControlAction {
 	fileinfo.setFileOwner("zhilong");
 	fileinfo.setTime(String.valueOf(System.currentTimeMillis()));
 	fileinfo.setState("1");
+	fileinfo.setStateStart("0");
 	fileinfo.setClientCatalog("/bin");
 	fileinfo.setServerCatalog("/bin");
 	fileInfoController.insertData(fileinfo);//插入数据库
+	b.fileInfoId[num] = fileInfoController.findLastRecord();//查找最新插入记录并将id记录下来
 //	if(!fileInfoController.isExitFile(fileinfo)){
 //		fileInfoController.insertData(fileinfo);//插入数据库
 //	}else{
@@ -81,7 +106,7 @@ public class FileBackUpControlAction {
     out.println(jsonString);  
     out.flush();  
     out.close();  
-//	return "success";
+	return "success";
 	 }
 	/**
 	 * 停止备份
@@ -89,11 +114,43 @@ public class FileBackUpControlAction {
 	 * @throws Exception
 	 */
 	public String stopbackup() throws Exception{
+		System.out.println("id="+this.id);
+		/**
+		 * 修改数据库记录
+		 */
+		controlFileInfoDAO controller = new controlFileInfoDAO();
+		controller.reviseStateStart(this.id);
+		controller.close();
+		/**
+		 * 修改session记录
+		 */
+		List<FileInfo> list = (List<FileInfo>) sess.get("list_backup_ing_files");
+		for(int k=0;k<list.size();k++){
+			if(list.get(k).getId() == this.id){
+				list.get(k).setStateStart("1");
+				sess.remove("list_backup_ing_files");
+		    	sess.put("list_backup_ing_files", list);
+			}
+		}
+		/**
+		 * 根据num暂停线程
+		 */
 		SingletonFileOperater a = null;
 		SingletonFileOperater b =a.getOperater();
-		b.stopSync(0);
-		
-		return "success";
+		System.out.println(b.RUNNING);
+		System.out.println(SingletonFileOperater.fileInfoId);
+		int num = 6;
+		for(int i=0;i<5;i++){
+			if(b.fileInfoId[i] == this.id){
+				num = i;
+			}
+		}
+		if(num != 6){
+			b.stopSync1(num);
+			return "success";
+		}else{
+			return "success";
+		}
 	}
 	/**
 	 * 获得备份目录数据

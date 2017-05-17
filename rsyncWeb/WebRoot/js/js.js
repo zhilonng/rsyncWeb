@@ -88,7 +88,6 @@ function getPath(obj)
 }    
 //开始备份
 function startBackUps(obj){ 	
-	alert(obj);
 	var data = {
 			'filename':'int'
 	};
@@ -107,6 +106,6 @@ function reStartBackUp(id){
 				
 			});
 }
-function stopBackUp(){
-	window.location.href="stopBackUp";
+function stopBackUp(id){
+	window.location.href="stopBackUp?id="+id;
 }
